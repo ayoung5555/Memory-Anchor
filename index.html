@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM Sans:wght@700&display=swap" />
+</head>
+
+<body>
+    <div class="base-interface-parent">
+        <div class="base-interface">
+            <div class="bg"></div>
+            <div class="base-interface-child" id="header-bg"></div>
+            <h1 class="extension-name" id="extension-title">Hello 497</h1>
+        </div>
+        <div class="navbar">
+            <div class="start-task" id="startTaskContainer">
+                <img class="replace-icon" alt="" src="./public/play-solid.svg" />
+
+                <p class="edit-text">start task</p>
+            </div>
+            <div class="start-task" id="recordTaskContainer">
+                <img class="replace-icon" alt="" src="./public/video-solid.svg" />
+
+                <p class="edit-text">record task</p>
+            </div>
+            <div class="help-button" id="helpButtonContainer">
+                <img class="help-button-icon" alt="" src="./public/question-circle.svg" />
+                <p class="help-button-text" id="help-text">HELP</p>
+            </div>
+        </div>
+        <!-- AY - TODO - FIX scroll-box cause it looks good but is messy rn -->
+        <div class="scroll-box">
+            <ul class="line-item">
+                <b class="edit-text2">line item #1</b>
+                <button class="start" id="start-button">
+                     <!-- play-button-1-icon -->
+                    <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
+                </button>
+                <button class="info" id="info-button">
+                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" /> <!-- info-1-icon -->
+                </button>
+                <button class="editdelete" id="delete-button">
+                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" /> <!-- trash-1-icon -->
+                </button>
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+</html>
