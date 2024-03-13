@@ -11,22 +11,25 @@
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     border: 1px solid var(--color-gray);
     box-sizing: border-box;
-  }
-  .base-interface-child,
-  .extension-name {
+}
+
+.base-interface-child,
+.extension-name {
     position: absolute;
     height: 12.66%;
     width: 100%;
     top: 0;
     left: 0;
-  }
-  .base-interface-child {
+}
+
+.base-interface-child {
     right: 0;
     bottom: 87.34%;
     border-radius: var(--br-10xs);
     background-color: var(--color-darkcyan);
-  }
-  .extension-name {
+}
+
+.extension-name {
     margin: 0;
     font-size: inherit;
     font-weight: 700;
@@ -34,8 +37,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  .base-interface {
+}
+
+.base-interface {
     position: absolute;
     top: 0;
     left: 0;
@@ -44,20 +48,23 @@
     text-align: center;
     font-size: var(--font-size-xl);
     color: var(--color-white);
-  }
-  .replace-icon {
+}
+
+.replace-icon {
     width: 24px;
     position: relative;
     height: 24px;
     object-fit: contain;
-  }
-  .edit-text {
+}
+
+.edit-text {
     margin: 0;
     position: relative;
     text-transform: uppercase;
     font-weight: 700;
-  }
-  .start-task {
+}
+
+.start-task {
     border-radius: var(--br-9xs);
     background-color: var(--color-white);
     height: 50px;
@@ -70,8 +77,9 @@
     box-sizing: border-box;
     gap: var(--gap-5xs);
     cursor: pointer;
-  }
-  .help-button-icon {
+}
+
+.help-button-icon {
     position: absolute;
     height: 55%;
     width: 100%;
@@ -83,15 +91,17 @@
     overflow: hidden;
     max-height: 100%;
     object-fit: contain;
-  }
-  .help-button-text {
+}
+
+.help-button-text {
     margin: 0;
     position: absolute;
     top: 60.14%;
     left: 14.55%;
     font-weight: 700;
-  }
-  .help-button {
+}
+
+.help-button {
     width: 55px;
     position: relative;
     height: 50px;
@@ -100,8 +110,9 @@
     border-radius: var(--br-9xs);
     background-color: var(--color-white);
     font-size: var(--font-size-base);
-  }
-  .navbar {
+}
+
+.navbar {
     position: absolute;
     top: 45px;
     left: 0;
@@ -113,41 +124,47 @@
     justify-content: space-between;
     padding: 0 5px;
     box-sizing: border-box;
-  }
-  .editdelete,
-  .info {
+}
+
+.editdelete,
+.info {
     cursor: pointer;
     border: 0;
     padding: 0;
     width: 30px;
-  }
-  .editdelete {
+}
+
+.editdelete {
     background-color: var(--color-orangered);
     position: absolute;
     top: 0;
     left: 347px;
     height: 30px;
-  }
-  .info {
+}
+
+.info {
     background-color: var(--color-lightgray);
     left: 317px;
-  }
-  .edit-text2,
-  .info,
-  .start {
+}
+
+.edit-text2,
+.info,
+.start {
     position: absolute;
     top: 0;
     height: 30px;
-  }
-  .start {
+}
+
+.start {
     cursor: pointer;
     border: 0;
     padding: 0;
     background-color: var(--color-limegreen);
     left: 287px;
     width: 30px;
-  }
-  .edit-text2 {
+}
+
+.edit-text2 {
     left: 10px;
     text-transform: capitalize;
     display: flex;
@@ -156,25 +173,17 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 269px;
-  }
-  .info-1-icon,
-  .play-button-1-icon,
-  .trash-1-icon {
-    position: absolute;
-    top: 4px;
-    left: 291px;
+}
+
+.line-item-icon {
+    position: relative;
+    margin: 2px;
     width: 22px;
     height: 22px;
     object-fit: contain;
-  }
-  .info-1-icon,
-  .trash-1-icon {
-    left: 321px;
-  }
-  .trash-1-icon {
-    left: 351px;
-  }
-  .line-item {
+}
+
+.line-item {
     width: 382px;
     position: relative;
     border-radius: var(--br-9xs);
@@ -182,30 +191,34 @@
     height: 30px;
     flex-shrink: 0;
     overflow-x: hidden;
-  }
-  .editdelete1,
-  .info1,
-  .scroll-box,
-  .start1 {
+}
+
+.editdelete1,
+.info1,
+.scroll-box,
+.start1 {
     position: absolute;
     top: 0;
     left: 347px;
     background-color: var(--color-orangered);
     width: 30px;
     height: 30px;
-  }
-  .info1,
-  .scroll-box,
-  .start1 {
+}
+
+.info1,
+.scroll-box,
+.start1 {
     left: 317px;
     background-color: var(--color-lightgray);
-  }
-  .scroll-box,
-  .start1 {
+}
+
+.scroll-box,
+.start1 {
     left: 287px;
     background-color: var(--color-limegreen);
-  }
-  .scroll-box {
+}
+
+.scroll-box {
     top: 101px;
     left: 5px;
     border-radius: var(--br-9xs);
@@ -221,8 +234,9 @@
     padding: var(--padding-9xs);
     box-sizing: border-box;
     gap: var(--gap-11xs);
-  }
-  .base-interface-parent {
+}
+
+.base-interface-parent {
     width: 100%;
     position: relative;
     background-color: var(--color-white);
@@ -232,5 +246,4 @@
     font-size: var(--font-size-lg);
     color: var(--color-black);
     font-family: var(--font-dm-sans);
-  }
-  
+}
