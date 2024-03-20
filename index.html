@@ -15,7 +15,7 @@
         <div class="base-interface">
             <div class="bg"></div>
             <div class="base-interface-child" id="header-bg"></div>
-            <h1 class="extension-name" id="extension-title">Hello 497</h1>
+            <h1 class="extension-name" id="extension-title">Memory Anchor</h1>
         </div>
         <div class="navbar">
             <div class="start-task" id="startTaskContainer">
@@ -34,10 +34,25 @@
             </div>
         </div>
 
+        <div id="helpMessage" class="scroll-box" style="display: none;">
+            <p>Press the "Record Task" button to record a message for future use. Press the "Start Task" button to see the tasks for your current website.</p>
+        </div>
+        
+        <div id="recordTask" class="scroll-box" style="display: none;">
+            <div class="modal-content">
+                <h2>Record a New Task</h2>
+                <input type="text" id="taskTitle" placeholder="Task Title" />
+                <input type="text" id="taskWebsite" placeholder="Website" />
+                <button id="startRecording">Start Recording</button>
+                <button id="stopRecording" disabled>Stop Recording</button>
+                <p id="recordingStatus">Not Recording</p>
+            </div>
+        </div>        
+
         <!-- AY - TODO - FIX scroll-box cause it looks good but is messy rn -->
-        <div class="scroll-box">
+        <div id = "taskStartSection" class="scroll-box">
             <ul class="line-item">
-                <b class="edit-text2">line item #1</b>
+                <b class="edit-text2">"Sign In" button</b>
                 <button class="start" id="start-button">
                      <!-- play-button-1-icon -->
                     <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
@@ -51,18 +66,16 @@
             </ul>
         </div>
     </div>
-    
-    <div id="recordTaskModal" class="modal">
+
+    <div id="infoModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Record a New Task</h2>
-            <input type="text" id="taskTitle" placeholder="Task Title" />
-            <input type="text" id="taskWebsite" placeholder="Website" />
-            <button id="startRecording">Start Recording</button>
-            <button id="stopRecording" disabled>Stop Recording</button>
-            <p id="recordingStatus">Not Recording</p>
+            <span class="close">&times;</span>
+            <h2 id="infoTitle">Modal Title</h2>
+            <p id="infoDescription">Some description here...</p>
+            <p id="infoWebsite">Website: <a href="#" id="infoWebLink">Click Here</a></p>
         </div>
     </div>
+
 
     <script src="./js/popup.js"></script>
 
