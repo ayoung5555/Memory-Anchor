@@ -1,11 +1,18 @@
 {
-  "name": "497 Chrome Extension",
-  "description": "Name TBD",
-  "version": "0.1",
+  "name": "Memory Anchor",
+  "short_name": "Mem Anchor",
+  "description": "497 Chrome Extension",
+  "version": "0.2",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html",
-    "default_icon": "hello_extensions.png",
+    "default_icon": "/manifest-icons/anchor-128-icon.png",
     "default_width": 400
+  },
+  "icons": {
+    "16": "manifest-icons/anchor-16-icon.png",
+    "32": "manifest-icons/anchor-32-icon.png",
+    "48": "manifest-icons/anchor-48-icon.png",
+    "128": "manifest-icons/anchor-128-icon.png"
   }
 }
