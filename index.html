@@ -42,6 +42,7 @@
             <div class="modal-content">
                 <h2>Record a New Task</h2>
                 <input type="text" id="taskTitle" placeholder="Task Title" />
+                <input type="text" id="taskDescription" placeholder="Description" />
                 <input type="text" id="taskWebsite" placeholder="Website" />
                 <button id="startRecording">Start Recording</button>
                 <button id="stopRecording" disabled>Stop Recording</button>
@@ -50,22 +51,50 @@
         </div>        
 
         <!-- AY - TODO - FIX scroll-box cause it looks good but is messy rn -->
-        <div id = "taskStartSection" class="scroll-box">
+        <div id="taskStartSection" class="scroll-box">
+
             <ul class="line-item">
-                <b class="edit-text2">"Sign In" button</b>
-                <button class="start" id="start-button">
-                     <!-- play-button-1-icon -->
+                <b class="edit-text2" id="task1-title">Sign In</b>
+                <button class="start" id="start-button-1">
                     <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
                 </button>
-                <button class="info" id="info-button">
-                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" /> <!-- info-1-icon -->
+                <button class="info" id="info-button-1">
+                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
                 </button>
-                <button class="editdelete" id="delete-button">
-                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" /> <!-- trash-1-icon -->
+                <button class="editdelete" id="delete-button-1">
+                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
+                </button>
+            </ul>
+
+            <ul class="line-item">
+                <b class="edit-text2" id="task2-title">Student Business</b>
+                <button class="start" id="start-button-2">
+                    <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
+                </button>
+                <button class="info" id="info-button-2">
+                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
+                </button>
+                <button class="editdelete" id="delete-button-2">
+                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
+                </button>
+            </ul>
+
+            <ul class="line-item">
+                <b class="edit-text2" id="task3-title">Payroll and Compensation</b>
+                <button class="start" id="start-button-3">
+                    <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
+                </button>
+                <button class="info" id="info-button-3">
+                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
+                </button>
+                <button class="editdelete" id="delete-button-3">
+                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
                 </button>
             </ul>
         </div>
     </div>
+
+    
 
     <div id="infoModal" class="modal" style="display: none;">
         <div class="modal-content">

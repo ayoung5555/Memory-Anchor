@@ -37,18 +37,32 @@ document.getElementById('stopRecording').addEventListener('click', function () {
     document.getElementById('startRecording').disabled = false;
 });
 
-document.getElementById('info-button').addEventListener('click', function() {
-    const title = document.querySelector('.edit-text2').textContent;
-    
-    const description = 'Click the "Sign In" button in the top right corner';
-    const website = 'https://wolverineaccess.umich.edu/';
-    
-    document.getElementById('infoTitle').textContent = title;
-    document.getElementById('infoDescription').textContent = description;
-    document.getElementById('infoWebLink').href = website;
-    document.getElementById('infoWebLink').textContent = website;
-    
-    document.getElementById('infoModal').style.display = 'block';
+document.querySelectorAll('.info').forEach(button => {
+    button.addEventListener('click', function() {
+
+        const taskId = button.id.split('-')[2]; 
+        const title = document.getElementById(`task${taskId}-title`).textContent;
+        
+        let description;
+        if (title === "Sign In") {
+            description = "Click the sign in button in the top right corner. Select the blue log in button";
+        } else if (title === "Student Business") {
+            description = "Click the search bar at the top of the screen and type student business in the search bar. Then click the rectangular tile that has student business on it";
+        } else if (title === "Payroll and Compensation") {
+            description = "Click the square that says payroll and compensation. It is on the left side and the second tile from the top of the screen. Select payroll and compensation on the left sidebar, and click view paycheck";
+        } else {
+            description = `Description for ${title}`;
+        }
+        
+        const website = `https://wolverineaccess.umich.edu/`;
+        
+        document.getElementById('infoTitle').textContent = title;
+        document.getElementById('infoDescription').textContent = description;
+        document.getElementById('infoWebLink').href = website;
+        document.getElementById('infoWebLink').textContent = website;
+        
+        document.getElementById('infoModal').style.display = 'block';
+    });
 });
 
 document.querySelector('.close').addEventListener('click', function() {
