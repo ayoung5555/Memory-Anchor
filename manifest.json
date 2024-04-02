@@ -14,5 +14,8 @@
     "32": "manifest-icons/anchor-32-icon.png",
     "48": "manifest-icons/anchor-48-icon.png",
     "128": "manifest-icons/anchor-128-icon.png"
-  }
+  },
+  "permissions": [
+    "storage"
+  ]
 }

@@ -1,3 +1,6 @@
+let mediaRecorder;
+let audioChunks = [];
+
 document.getElementById('helpMessage').style.display = 'block';
 
 document.getElementById('startTaskContainer').addEventListener('click', function () {
@@ -18,18 +21,38 @@ document.getElementById('helpButtonContainer').addEventListener('click', functio
     document.getElementById('helpMessage').style.display = 'block';
 });
 
-document.getElementById('startRecording').addEventListener('click', function () {
-    document.getElementById('recordingStatus').innerText = 'Recording...';
-    this.disabled = true;
-    document.getElementById('stopRecording').disabled = false;
-});
+function startRecording() {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.onstart = () => {
+                audioChunks = [];
+                document.getElementById('recordingStatus').innerText = 'Recording...';
+                document.getElementById('stopRecording').disabled = false; 
+            };
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { 'type' : 'audio/mp4' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                saveTaskDetails(audioUrl);
+            };
+            mediaRecorder.start();
+            document.getElementById('startRecording').disabled = true;
+        })
+        .catch(error => console.error(error));
+}
+
+document.getElementById('startRecording').addEventListener('click', startRecording);
+
+
 
 document.getElementById('stopRecording').addEventListener('click', function () {
+    mediaRecorder.stop();
     document.getElementById('recordingStatus').innerText = 'Not Recording';
     this.disabled = true;
     document.getElementById('startRecording').disabled = false;
-
-    saveTaskDetails();
 });
 
 function bindInfoButtons() {
@@ -63,21 +86,20 @@ document.querySelector('.close').addEventListener('click', function() {
     document.getElementById('infoModal').style.display = 'none';
 });
 
-function saveTaskDetails() {
+function saveTaskDetails(audioUrl) {
     const title = document.getElementById('taskTitle').value;
     const description = document.getElementById('taskDescription').value;
     const website = document.getElementById('taskWebsite').value;
 
     const tasks = JSON.parse(localStorage.getItem('recordedTasks')) || [];
-    tasks.push({ title, description, website });
+    tasks.push({ title, description, website, audioUrl });
     localStorage.setItem('recordedTasks', JSON.stringify(tasks));
-
     document.getElementById('taskTitle').value = '';
     document.getElementById('taskDescription').value = '';
     document.getElementById('taskWebsite').value = '';
-
     updateStartTaskTab();
 }
+
 
 function bindDeleteButtons() {
     document.querySelectorAll('.editdelete').forEach(button => {
@@ -111,6 +133,7 @@ function updateStartTaskTab() {
 
     bindInfoButtons();
     bindDeleteButtons();
+    bindStartButtons()
     adjustTaskSectionHeight();
 }
 
@@ -139,6 +162,24 @@ function adjustTaskSectionHeight() {
     var offsetTop = document.querySelector('.navbar').offsetHeight + document.querySelector('#header-bg').offsetHeight;
     var taskStartSection = document.getElementById('taskStartSection');
     taskStartSection.style.maxHeight = `calc(100vh - ${offsetTop}px)`;
+}
+
+function bindStartButtons() {
+    document.querySelectorAll('.start').forEach(button => {
+        button.removeEventListener('click', startButtonHandler); 
+        button.addEventListener('click', startButtonHandler);
+    });
+}
+
+function startButtonHandler() {
+    const button = this;
+    const taskId = button.id.split('-')[2];
+    const tasks = JSON.parse(localStorage.getItem('recordedTasks')) || [];
+    const task = tasks[taskId - 1];
+    if (task && task.audioUrl) {
+        const audio = new Audio(task.audioUrl);
+        audio.play().catch(error => console.error("Playback failed", error));
+    }
 }
 
 document.addEventListener('DOMContentLoaded', updateStartTaskTab);
