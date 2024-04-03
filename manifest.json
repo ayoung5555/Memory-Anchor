@@ -2,7 +2,7 @@
   "name": "Memory Anchor",
   "short_name": "Mem Anchor",
   "description": "497 Chrome Extension",
-  "version": "0.2",
+  "version": "0.4",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html",
@@ -16,6 +16,8 @@
     "128": "manifest-icons/anchor-128-icon.png"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "unlimitedStorage",
+    "activeTab"
   ]
 }
