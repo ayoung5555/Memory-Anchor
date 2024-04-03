@@ -1,5 +1,6 @@
 let mediaRecorder;
 let audioChunks = [];
+let tempAudioUrl = '';
 
 document.getElementById('helpMessage').style.display = 'block';
 
@@ -22,6 +23,7 @@ document.getElementById('helpButtonContainer').addEventListener('click', functio
 });
 
 function startRecording() {
+    document.getElementById('addTask').disabled = true;
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
             mediaRecorder = new MediaRecorder(stream);
@@ -33,10 +35,10 @@ function startRecording() {
             mediaRecorder.ondataavailable = event => {
                 audioChunks.push(event.data);
             };
-            mediaRecorder.onstop = () => {
+            mediaRecorder.onstop = async () => {
                 const audioBlob = new Blob(audioChunks, { 'type' : 'audio/mp4' });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                saveTaskDetails(audioUrl);
+                tempAudioBlob = audioBlob; 
+                document.getElementById('addTask').disabled = false;
             };
             mediaRecorder.start();
             document.getElementById('startRecording').disabled = true;
@@ -53,6 +55,7 @@ document.getElementById('stopRecording').addEventListener('click', function () {
     document.getElementById('recordingStatus').innerText = 'Not Recording';
     this.disabled = true;
     document.getElementById('startRecording').disabled = false;
+    document.getElementById('addTask').disabled = false;
 });
 
 function bindInfoButtons() {
@@ -86,10 +89,15 @@ document.querySelector('.close').addEventListener('click', function() {
     document.getElementById('infoModal').style.display = 'none';
 });
 
-function saveTaskDetails(audioUrl) {
+async function saveTaskDetails(audioBlob) {
     const title = document.getElementById('taskTitle').value;
     const description = document.getElementById('taskDescription').value;
     const website = document.getElementById('taskWebsite').value;
+    
+    let audioUrl = ''; 
+    if (audioBlob) {
+        audioUrl = await blobToBase64(audioBlob); 
+    }
 
     const tasks = JSON.parse(localStorage.getItem('recordedTasks')) || [];
     tasks.push({ title, description, website, audioUrl });
@@ -98,6 +106,15 @@ function saveTaskDetails(audioUrl) {
     document.getElementById('taskDescription').value = '';
     document.getElementById('taskWebsite').value = '';
     updateStartTaskTab();
+}
+
+function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result); 
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+    });
 }
 
 
@@ -176,11 +193,26 @@ function startButtonHandler() {
     const taskId = button.id.split('-')[2];
     const tasks = JSON.parse(localStorage.getItem('recordedTasks')) || [];
     const task = tasks[taskId - 1];
+
     if (task && task.audioUrl) {
-        const audio = new Audio(task.audioUrl);
+        let audioSrc = task.audioUrl;
+        if (!audioSrc.startsWith('data:audio/mp4;base64,')) {
+            audioSrc = 'data:audio/mp4;base64,' + audioSrc;
+        }
+        const audio = new Audio(audioSrc);
         audio.play().catch(error => console.error("Playback failed", error));
     }
 }
+
+document.getElementById('addTask').addEventListener('click', async function() {
+    const title = document.getElementById('taskTitle').value.trim();
+    if (title) {
+        await saveTaskDetails(tempAudioBlob || null); 
+        tempAudioBlob = null;
+    } else {
+        alert('Please provide at least a title for the task.');
+    }
+});
 
 document.addEventListener('DOMContentLoaded', updateStartTaskTab);
 document.addEventListener('DOMContentLoaded', adjustTaskSectionHeight);
