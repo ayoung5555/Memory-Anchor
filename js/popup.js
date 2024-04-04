@@ -1,6 +1,8 @@
 let mediaRecorder;
 let audioChunks = [];
 let db;
+let ObjectURLstore = [];
+let PlayedAudios = [];
 
 function initDb() {
     // open db and if it does not exist, then create one
@@ -234,6 +236,16 @@ function bindStartButtons() {
     });
 }
 
+function stopAllAudio() {
+    PlayedAudios.forEach((x) => {
+        x.pause();
+        x.currentTime = 0;
+    });
+    ObjectURLstore.forEach((url) => {
+        URL.revokeObjectURL(url);
+    });
+}
+
 function startButtonHandler() {
     const button = this;
     const key = Number(document.getElementById(button.id).getAttribute('data-key'));
@@ -245,7 +257,12 @@ function startButtonHandler() {
     request.onsuccess = function (event) {
         const task = event.target.result;
         if (task) {
-            const audio = new Audio(task.audioBlob);
+            stopAllAudio();
+            const audioBlob = task.audioBlob;
+            const audioUrl = URL.createObjectURL(audioBlob);
+            ObjectURLstore.push(audioUrl);
+            const audio = new Audio(audioUrl);
+            PlayedAudios.push(audio);
             audio.play().catch(error => console.error("Playback failed", error));
         }
     };
