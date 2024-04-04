@@ -86,32 +86,6 @@ document.getElementById('stopRecording').addEventListener('click', function () {
     document.getElementById('startRecording').disabled = false;
 });
 
-function saveTaskDetails(audioBlob) {
-    const title = document.getElementById('taskTitle').value;
-    const description = document.getElementById('taskDescription').value;
-    const website = document.getElementById('taskWebsite').value;
-
-    const transaction = db.transaction(['recordedTasks'], 'readwrite');
-    const store = transaction.objectStore('recordedTasks');
-    const task = { title, description, website, audioBlob };
-
-    let id = store.add(task);
-
-    transaction.oncomplete = (event) => {
-        // console.log('Task saved successfully:', id);
-    };
-
-    transaction.onerror = (event) => {
-        console.error('Task save error:', event.target.errorCode);
-    };
-
-    updateStartTaskTab();
-
-    document.getElementById('taskTitle').value = '';
-    document.getElementById('taskDescription').value = '';
-    document.getElementById('taskWebsite').value = '';
-}
-
 function bindInfoButtons() {
     document.querySelectorAll('.info').forEach(button => {
         button.removeEventListener('click', infoButtonHandler);
@@ -150,6 +124,32 @@ bindInfoButtons();
 document.querySelector('.close').addEventListener('click', function () {
     document.getElementById('infoModal').style.display = 'none';
 });
+
+function saveTaskDetails(audioBlob) {
+    const title = document.getElementById('taskTitle').value;
+    const description = document.getElementById('taskDescription').value;
+    const website = document.getElementById('taskWebsite').value;
+
+    const transaction = db.transaction(['recordedTasks'], 'readwrite');
+    const store = transaction.objectStore('recordedTasks');
+    const task = { title, description, website, audioBlob };
+
+    let id = store.add(task);
+
+    transaction.oncomplete = (event) => {
+        // console.log('Task saved successfully:', id);
+    };
+
+    transaction.onerror = (event) => {
+        console.error('Task save error:', event.target.errorCode);
+    };
+
+    updateStartTaskTab();
+
+    document.getElementById('taskTitle').value = '';
+    document.getElementById('taskDescription').value = '';
+    document.getElementById('taskWebsite').value = '';
+}
 
 function updateStartTaskTab() {
     const store = db.transaction('recordedTasks', 'readonly').objectStore('recordedTasks');
