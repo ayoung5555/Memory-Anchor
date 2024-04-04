@@ -9,6 +9,8 @@
 
 - [ ] BUG - Request user for mic permissions [see here](https://github.com/GoogleChrome/chrome-extensions-samples/issues/821)
 
+- [ ] Add more todo items?
+
 ## Installation
 
 1. Clone the repository to your local machine:
