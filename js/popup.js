@@ -6,24 +6,22 @@ function initDb() {
     // open db and if it does not exist, then create one
     const request = indexedDB.open('recordedTasksDB', 1);
 
-    request.onupgradeneeded = function(event) {
+    request.onupgradeneeded = function (event) {
         db = event.target.result;
         if (!db.objectStoreNames.contains('recordedTasks')) {
             db.createObjectStore('recordedTasks', { keyPath: 'id', autoIncrement: true });
-            // sleep
-            objectStore.transaction.oncomplete = (event) => {};
         }
     };
 
-    request.onsuccess = function(event) {
+    request.onsuccess = function (event) {
         db = event.target.result;
-        console.log('line20')
         updateStartTaskTab();
-        console.log('line22')
     };
 
-    request.onerror = function(event) {
+    request.onerror = function (event) {
         console.error('IndexedDB error:', event.target.errorCode);
+        // note: if diagnosing db bugs, delete the db by running 
+        // by going to dev console > applications > indexedDB > recordedTasksDB > right click > delete
     };
 }
 
@@ -36,9 +34,7 @@ document.getElementById('startTaskContainer').addEventListener('click', function
     document.getElementById('helpMessage').style.display = 'none';
     document.getElementById('recordTask').style.display = 'none';
     document.getElementById('taskStartSection').style.display = 'block';
-    console.log('line39')
     updateStartTaskTab();
-    console.log('line41')
 });
 
 document.getElementById('recordTaskContainer').addEventListener('click', function () {
@@ -56,7 +52,7 @@ document.getElementById('helpButtonContainer').addEventListener('click', functio
 function startRecording() {
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
-            options = { mimeType: 'audio/mp4', audioBitsPerSecond: 96000};
+            options = { audioBitsPerSecond: 96000 }; // save storage space and reduce latency
             mediaRecorder = new MediaRecorder(stream, options);
             mediaRecorder.onstart = () => {
                 audioChunks = [];
@@ -67,8 +63,8 @@ function startRecording() {
                 audioChunks.push(event.data);
             };
             mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { 'type' : 'audio/mp4' });
-                // const audioUrl = URL.createObjectURL(audioBlob);
+                // unsure if this is the correct way to do this, going to play around with it
+                const audioBlob = new Blob(audioChunks, { 'type': 'audio/ogg' });
                 saveTaskDetails(audioBlob);
             };
             mediaRecorder.start();
@@ -88,7 +84,6 @@ document.getElementById('stopRecording').addEventListener('click', function () {
     document.getElementById('startRecording').disabled = false;
 });
 
-// Function to save task details to IndexedDB
 function saveTaskDetails(audioBlob) {
     const title = document.getElementById('taskTitle').value;
     const description = document.getElementById('taskDescription').value;
@@ -97,19 +92,19 @@ function saveTaskDetails(audioBlob) {
     const transaction = db.transaction(['recordedTasks'], 'readwrite');
     const store = transaction.objectStore('recordedTasks');
     const task = { title, description, website, audioBlob };
-    
+
     let id = store.add(task);
 
     transaction.oncomplete = (event) => {
-        console.log('Task saved successfully:', id);
+        // console.log('Task saved successfully:', id);
     };
 
     transaction.onerror = (event) => {
         console.error('Task save error:', event.target.errorCode);
     };
-    
+
     updateStartTaskTab();
-    
+
     document.getElementById('taskTitle').value = '';
     document.getElementById('taskDescription').value = '';
     document.getElementById('taskWebsite').value = '';
@@ -124,24 +119,23 @@ function bindInfoButtons() {
 
 function infoButtonHandler() {
     const button = this;
-    const taskId = Number(button.id.split('-')[2]);
-      
+    const key = Number(document.getElementById(button.id).getAttribute('data-key'));
+
     const transaction = db.transaction(['recordedTasks'], 'readonly');
     const store = transaction.objectStore('recordedTasks');
-    
-    let request = store.get(taskId);
-    
-    request.onsuccess = function(event) {
+
+    const request = store.get(key);
+
+    request.onsuccess = (event) => {
         const task = event.target.result;
-      
         if (task) {
-            document.getElementById('infoTitle').textContent = task.title ? task.title : 'No title provided';
+            document.getElementById('infoTitle').textContent = task.title ? task.title : 'Untitled Task';
             document.getElementById('infoDescription').textContent = task.description ? task.description : 'No description provided';
             document.getElementById('infoWebLink').href = task.website ? task.website : 'https://www.google.com';
             document.getElementById('infoWebLink').textContent = task.website ? task.website : 'Sample website link';
         }
     };
-    
+
     document.getElementById('infoModal').style.display = 'block';
 
     request.onerror = (event) => {
@@ -151,39 +145,39 @@ function infoButtonHandler() {
 
 bindInfoButtons();
 
-document.querySelector('.close').addEventListener('click', function() {
+document.querySelector('.close').addEventListener('click', function () {
     document.getElementById('infoModal').style.display = 'none';
 });
 
 function updateStartTaskTab() {
-    console.log('hi')
-    console.log(db)
     const store = db.transaction('recordedTasks', 'readonly').objectStore('recordedTasks');
     const request = store.openCursor();
     const taskStartSection = document.getElementById('taskStartSection');
+    taskStartSection.innerHTML = '';
     const fragment = document.createDocumentFragment();
 
-    request.onsuccess = function(event) {
-        let index = 0;
+    let index = 0;
+    request.onsuccess = function (event) {
         const cursor = event.target.result;
         if (cursor) {
+            console.log("index ", index)
             const task = cursor.value;
             const taskItem = document.createElement('ul');
-            taskItem.classList.add('task-item');
+            taskItem.classList.add('line-item');
             taskItem.innerHTML = `
             <b class="edit-text2" id="task${index + 1}-title">${task.title}</b>
-            <button class="start" id="start-button-${index + 1}">
+            <button class="start" data-key="${cursor.key}"id="start-button-${index + 1}">
                 <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
             </button>
-            <button class="info" id="info-button-${index + 1}">
+            <button class="info" data-key="${cursor.key}" id="info-button-${index + 1}">
                 <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
             </button>
-            <button class="editdelete" id="delete-button-${index + 1}">
+            <button class="editdelete" data-key="${cursor.key}" id="delete-button-${index + 1}">
                 <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
             </button>
-        `;
+            `;
+            index += 1;
             fragment.appendChild(taskItem);
-            index++;
             cursor.continue();
         } else {
             taskStartSection.appendChild(fragment);
@@ -194,23 +188,37 @@ function updateStartTaskTab() {
         }
     };
 
-    request.onerror = function(event) {
+    request.onerror = function (event) {
         console.error('Task retrieval error:', event.target.errorCode);
     }
 }
 
+function bindDeleteButtons() {
+    document.querySelectorAll('.editdelete').forEach(button => {
+        button.removeEventListener('click', deleteButtonHandler);
+        button.addEventListener('click', deleteButtonHandler);
+    });
+}
+
 function deleteButtonHandler() {
     const button = this;
-    const taskId = Number(button.id.split('-')[2]);
-      
+    const key = Number(document.getElementById(button.id).getAttribute('data-key'));
     const transaction = db.transaction(['recordedTasks'], 'readwrite');
     const store = transaction.objectStore('recordedTasks');
-    
-    if (confirm(`Are you sure you want to delete the task "${store.get(taskId).title}"?`)) {
-        store.delete(taskId);
-        updateStartTaskTab();
-    }
+    const request = store.get(key);
 
+    request.onsuccess = function (event) {
+        const task = event.target.result;
+        if (confirm(`Are you sure you want to delete the task "${task.title}"?`)) {
+            console.log('deleting task', key);
+            console.log('task title:', task.title);
+            store.delete(key);
+            updateStartTaskTab();
+        }
+    };
+    request.onerror = (event) => {
+        console.error('Task deletion error:', event.target.errorCode);
+    }
 }
 
 function adjustTaskSectionHeight() {
@@ -226,25 +234,16 @@ function bindStartButtons() {
     });
 }
 
-function bindDeleteButtons() {
-    document.querySelectorAll('.delete').forEach(button => {
-        button.removeEventListener('click', deleteButtonHandler);
-        button.addEventListener('click', deleteButtonHandler);
-    });
-}
-
 function startButtonHandler() {
     const button = this;
-    const taskId = Number(button.id.split('-')[2]);
+    const key = Number(document.getElementById(button.id).getAttribute('data-key'));
 
     const transaction = db.transaction(['recordedTasks'], 'readonly');
     const store = transaction.objectStore('recordedTasks');
-    
-    let request = store.get(taskId);
+    const request = store.get(key);
 
-    request.onsuccess = function(event) {
+    request.onsuccess = function (event) {
         const task = event.target.result;
-      
         if (task) {
             const audio = new Audio(task.audioBlob);
             audio.play().catch(error => console.error("Playback failed", error));
@@ -252,5 +251,4 @@ function startButtonHandler() {
     };
 }
 
-// document.addEventListener('DOMContentLoaded', updateStartTaskTab);
 document.addEventListener('DOMContentLoaded', adjustTaskSectionHeight);
