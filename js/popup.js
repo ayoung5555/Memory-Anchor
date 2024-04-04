@@ -65,7 +65,6 @@ function startRecording() {
                 audioChunks.push(event.data);
             };
             mediaRecorder.onstop = () => {
-                // unsure if this is the correct way to do this, going to play around with it
                 const audioBlob = new Blob(audioChunks, { 'type': 'audio/ogg' });
                 saveTaskDetails(audioBlob);
             };
