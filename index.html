@@ -35,21 +35,25 @@
         </div>
 
         <div id="helpMessage" class="scroll-box" style="display: none;">
-            <p>Press the "Record Task" button to record a message for future use. Press the "Start Task" button to see the tasks for your current website.</p>
+            <p>Press the "Record Task" button to record a message for future use. Press the "Start Task" button to see
+                the tasks for your current website.</p>
         </div>
-        
+
         <div id="recordTask" class="scroll-box" style="display: none;">
-            <div class="modal-content">
+            <div class="recording-content">
                 <h2>Record a New Task</h2>
                 <input type="text" id="taskTitle" placeholder="Task Title" />
+                <br>
                 <input type="text" id="taskDescription" placeholder="Description" />
+                <br>
                 <input type="text" id="taskWebsite" placeholder="Website" />
-                <button id="startRecording">Start Recording</button>
-                <button id="stopRecording" disabled>Stop Recording</button>
-                <button id="addTask" style="margin-top: 10px;">Add Task</button>
-                <p id="recordingStatus">Not Recording</p>
+                <br>
+                <button id="startRecording" style="display: inline;">Start Recording</button>
+                <button id="stopRecording" disabled style='display: none;'>Stop Recording</button>
+                <button id="addTask">Add Task</button>
+                <p id="recordingStatus" class="status-text">Not Recording</p>
             </div>
-        </div>        
+        </div>
 
         <div id="taskStartSection" class="scroll-box">
 
@@ -94,7 +98,7 @@
         </div>
     </div>
 
-    
+
 
     <div id="infoModal" class="modal" style="display: none;">
         <div class="modal-content">

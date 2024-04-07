@@ -44,7 +44,7 @@ document.getElementById('recordTaskContainer').addEventListener('click', functio
     document.getElementById('taskStartSection').style.display = 'none';
     document.getElementById('recordTask').style.display = 'block';
     // autofill the website field with the current tab's URL
-    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
         let url = tabs[0].url;
         document.getElementById('taskWebsite').value = url;
     });
@@ -66,31 +66,41 @@ function startRecording() {
                 audioChunks = [];
                 document.getElementById('recordingStatus').innerText = 'Recording...';
                 document.getElementById('stopRecording').disabled = false;
+                document.getElementById('addTask').disabled = true;
             };
             mediaRecorder.ondataavailable = event => {
                 audioChunks.push(event.data);
+
             };
             mediaRecorder.onstop = async () => {
                 const audioBlob = new Blob(audioChunks, { 'type': 'audio/ogg' });
                 tempAudioBlob = audioBlob;
                 document.getElementById('addTask').disabled = false;
+
             };
             mediaRecorder.start();
             document.getElementById('startRecording').disabled = true;
-            document.getElementById('addTask').disabled = false;
+            // document.getElementById('addTask').disabled = false;
         })
         .catch(error => console.error(error));
 }
 
-document.getElementById('startRecording').addEventListener('click', startRecording);
-
-
+document.getElementById('startRecording').addEventListener('click', () => {
+    this.disabled = true;
+    document.getElementById('startRecording').setAttribute('style', 'display: none;');
+    document.getElementById('stopRecording').setAttribute('style', 'display: inline;');
+    startRecording();
+}
+);
 
 document.getElementById('stopRecording').addEventListener('click', function () {
     mediaRecorder.stop();
     document.getElementById('recordingStatus').innerText = 'Not Recording';
+
     this.disabled = true;
+    document.getElementById('stopRecording').setAttribute('style', 'display: none;');
     document.getElementById('startRecording').disabled = false;
+    document.getElementById('startRecording').setAttribute('style', 'display: inline;');
 });
 
 function bindInfoButtons() {
@@ -132,10 +142,25 @@ document.querySelector('.close').addEventListener('click', function () {
     document.getElementById('infoModal').style.display = 'none';
 });
 
-async function saveTaskDetails(audioBlob) {
+function saveTaskDetails(audioBlob) {
     const title = document.getElementById('taskTitle').value;
     const description = document.getElementById('taskDescription').value;
     const website = document.getElementById('taskWebsite').value;
+    const faviconUrl = null;
+
+    // Check if the website value has the same base as the current URL
+    // if so, use the current favicon and save it.
+    // let currurl
+    // let websiteInput = URL(website)
+    // chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+    //     currurl = tabs[0].url;
+    // });
+    // currurl = URL(currurl)
+    // if (websiteInput.hostname == currurl) {
+    //     // save the favicon
+    //     faviconUrl = chrome.tabs.faviconUrl;
+    //     console.log("Saving favicon: ", faviconUrl);
+    // }
 
     const transaction = db.transaction(['recordedTasks'], 'readwrite');
     const store = transaction.objectStore('recordedTasks');
@@ -155,7 +180,7 @@ async function saveTaskDetails(audioBlob) {
 
     document.getElementById('taskTitle').value = '';
     document.getElementById('taskDescription').value = '';
-    document.getElementById('taskWebsite').value = '';
+    // not resetting url because it autofills or was manually changed
 }
 
 function updateStartTaskTab() {
@@ -173,18 +198,31 @@ function updateStartTaskTab() {
             const task = cursor.value;
             const taskItem = document.createElement('ul');
             taskItem.classList.add('line-item');
-            taskItem.innerHTML = `
-            <b class="edit-text2" id="task${index + 1}-title">${task.title}</b>
-            <button class="start" data-key="${cursor.key}"id="start-button-${index + 1}">
-                <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
-            </button>
-            <button class="info" data-key="${cursor.key}" id="info-button-${index + 1}">
-                <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
-            </button>
-            <button class="editdelete" data-key="${cursor.key}" id="delete-button-${index + 1}">
-                <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
-            </button>
-            `;
+            if (task.audioBlob) {
+                taskItem.innerHTML = `
+                <b class="edit-text2" id="task${index + 1}-title">${task.title}</b>
+                <button class="start" data-key="${cursor.key}"id="start-button-${index + 1}">
+                    <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
+                </button>
+                <button class="info" data-key="${cursor.key}" id="info-button-${index + 1}">
+                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
+                </button>
+                <button class="editdelete" data-key="${cursor.key}" id="delete-button-${index + 1}">
+                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
+                </button>
+                `;
+            } else {
+                // if type is other or null, then there was no audio recorded
+                taskItem.innerHTML = `
+                <b class="edit-text2" id="task${index + 1}-title">${task.title}</b>
+                <button class="info" data-key="${cursor.key}" id="info-button-${index + 1}">
+                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
+                </button>
+                <button class="editdelete" data-key="${cursor.key}" id="delete-button-${index + 1}">
+                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
+                </button>
+                `;
+            }
             index += 1;
             fragment.appendChild(taskItem);
             cursor.continue();
@@ -193,7 +231,6 @@ function updateStartTaskTab() {
             bindDeleteButtons();
             bindInfoButtons();
             bindStartButtons();
-            adjustTaskSectionHeight();
         }
     };
 
@@ -230,11 +267,11 @@ function deleteButtonHandler() {
     }
 }
 
-function adjustTaskSectionHeight() {
-    const offsetTop = document.querySelector('.navbar').offsetHeight + document.querySelector('#header-bg').offsetHeight;
-    const taskStartSection = document.getElementById('taskStartSection');
-    taskStartSection.style.maxHeight = `calc(100vh - ${offsetTop}px)`;
-}
+// function adjustTaskSectionHeight() {
+//     const offsetTop = document.querySelector('.navbar').offsetHeight + document.querySelector('#header-bg').offsetHeight;
+//     const taskStartSection = document.getElementById('taskStartSection');
+//     // taskStartSection.style.maxHeight = `calc(100vh - ${offsetTop}px)`;
+// }
 
 function bindStartButtons() {
     document.querySelectorAll('.start').forEach(button => {
@@ -275,14 +312,14 @@ function startButtonHandler() {
     };
 }
 
-document.getElementById('addTask').addEventListener('click', async function() {
+document.getElementById('addTask').addEventListener('click', async function () {
     const title = document.getElementById('taskTitle').value.trim();
+    // do the save
     if (title) {
-        await saveTaskDetails(tempAudioBlob || null); 
+        saveTaskDetails(tempAudioBlob || null);
         tempAudioBlob = null;
     } else {
         alert('Please provide at least a title for the task.');
     }
-});
 
-document.addEventListener('DOMContentLoaded', adjustTaskSectionHeight);
+});
