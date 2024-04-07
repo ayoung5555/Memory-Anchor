@@ -43,6 +43,11 @@ document.getElementById('recordTaskContainer').addEventListener('click', functio
     document.getElementById('helpMessage').style.display = 'none';
     document.getElementById('taskStartSection').style.display = 'none';
     document.getElementById('recordTask').style.display = 'block';
+    // autofill the website field with the current tab's URL
+    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+        let url = tabs[0].url;
+        document.getElementById('taskWebsite').value = url;
+    });
 });
 
 document.getElementById('helpButtonContainer').addEventListener('click', function () {
