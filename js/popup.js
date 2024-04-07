@@ -52,6 +52,7 @@ document.getElementById('helpButtonContainer').addEventListener('click', functio
 });
 
 function startRecording() {
+    document.getElementById('addTask').disabled = true;
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
             options = { audioBitsPerSecond: 96000 }; // save storage space and reduce latency
@@ -64,12 +65,14 @@ function startRecording() {
             mediaRecorder.ondataavailable = event => {
                 audioChunks.push(event.data);
             };
-            mediaRecorder.onstop = () => {
+            mediaRecorder.onstop = async () => {
                 const audioBlob = new Blob(audioChunks, { 'type': 'audio/ogg' });
-                saveTaskDetails(audioBlob);
+                tempAudioBlob = audioBlob;
+                document.getElementById('addTask').disabled = false;
             };
             mediaRecorder.start();
             document.getElementById('startRecording').disabled = true;
+            document.getElementById('addTask').disabled = false;
         })
         .catch(error => console.error(error));
 }
@@ -124,7 +127,7 @@ document.querySelector('.close').addEventListener('click', function () {
     document.getElementById('infoModal').style.display = 'none';
 });
 
-function saveTaskDetails(audioBlob) {
+async function saveTaskDetails(audioBlob) {
     const title = document.getElementById('taskTitle').value;
     const description = document.getElementById('taskDescription').value;
     const website = document.getElementById('taskWebsite').value;
@@ -266,5 +269,15 @@ function startButtonHandler() {
         }
     };
 }
+
+document.getElementById('addTask').addEventListener('click', async function() {
+    const title = document.getElementById('taskTitle').value.trim();
+    if (title) {
+        await saveTaskDetails(tempAudioBlob || null); 
+        tempAudioBlob = null;
+    } else {
+        alert('Please provide at least a title for the task.');
+    }
+});
 
 document.addEventListener('DOMContentLoaded', adjustTaskSectionHeight);

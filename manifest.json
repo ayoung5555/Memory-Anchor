@@ -2,7 +2,7 @@
   "name": "Memory Anchor",
   "short_name": "Mem Anchor",
   "description": "497 Chrome Extension",
-  "version": "0.4",
+  "version": "0.5.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html",
