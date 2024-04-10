@@ -22,6 +22,19 @@
     left: 0;
 }
 
+h2 {
+    font-size: var(--font-size-xl);
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+.status-text {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
 .base-interface-child {
     right: 0;
     bottom: 87.34%;
@@ -203,6 +216,7 @@
     background-color: var(--color-orangered);
     width: 30px;
     height: 30px;
+    scrollbar-width: thin;
 }
 
 .info1,
@@ -224,7 +238,7 @@
     border-radius: var(--br-9xs);
     background-color: var(--color-gainsboro);
     width: 390px;
-    height: 300px;
+    height: 210px;
     overflow-y: auto;
     overflow-x: hidden;
     flex-direction: column;
@@ -268,6 +282,12 @@
     width: 80%;
 }
 
+.recording-content {
+    margin: 0% auto; 
+    padding: 10px;
+    width: 95%;
+}
+
 .close-button {
     color: #aaa;
     float: right;
@@ -295,14 +315,3 @@
     text-decoration: none;
     cursor: pointer;
 }
-
-#recordingStatus {
-    margin-top: -1px;
-}
-
-#taskStartSection {
-    max-height: calc(100vh - [OffsetTop]px);
-    overflow-y: auto;
-}
-
-
