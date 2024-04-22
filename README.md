@@ -1,21 +1,32 @@
 497 Chrome Extension
 ==
 
+## Things to show off in demo
+1. Record feature
+
+2. Playback feature
+
+3. Information tab (website opening in new tab)
+
+4. Deleting of recordings
+
+5. Help Tab
+
+6. Record with no audio (play button doesn't appear)
+
+7. Mention that it defaults to current website
+
 ## Todo
 
 - [x] BUG - Fix audio not stopping when playing new audio
 
 - [x] BUG - Make audio permanant
 
-- [ ] BUG - Request user for mic permissions [see here](https://github.com/GoogleChrome/chrome-extensions-samples/issues/821)
+- [x] BUG - visual, fix the spacing between recordings
 
-- [ ] BUG - adding task without audio doesn't work sometimes
+- [x] BUG - make it so audio continues playing / recording even while the user clicks out of the extension to interact with the website.
 
-- [ ] BUG - visual, fix the spacing between recordings
-
-- [ ] BUG - make it so audio continues playing / recording even while the user clicks out of the extension to interact with the website.
-
-- [ ] BUG - clicking website link in info does not open - I think just need to add `target='_blank'` for it to open in new tab?
+- [x] BUG - clicking website link in info does not open - I think just need to add `target='_blank'` for it to open in new tab?
 
 - [ ] FEAT - Import / Export via json. See [here](https://stackoverflow.com/a/8205461) and [here](https://github.com/Polarisation/indexeddb-export-import) though let's discuss before adding any packages
 
