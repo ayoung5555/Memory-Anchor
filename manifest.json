@@ -18,6 +18,10 @@
   "permissions": [
     "storage",
     "unlimitedStorage",
-    "activeTab"
-  ]
+    "activeTab",
+    "offscreen"
+  ],
+  "background": {
+    "service_worker": "/js/background.js"
+  }
 }

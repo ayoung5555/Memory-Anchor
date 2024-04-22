@@ -307,7 +307,8 @@ function startButtonHandler() {
             ObjectURLstore.push(audioUrl);
             const audio = new Audio(audioUrl);
             PlayedAudios.push(audio);
-            audio.play().catch(error => console.error("Playback failed", error));
+            chrome.runtime.sendMessage({ action: 'playAudio', source: audioUrl });
+            // audio.play().catch(error => console.error("Playback failed", error));
         }
     };
 }
@@ -319,7 +320,7 @@ document.getElementById('addTask').addEventListener('click', async function () {
         saveTaskDetails(tempAudioBlob || null);
         tempAudioBlob = null;
     } else {
-        alert('Please provide at least a title for the task.');
+        alert('Please provide a title for the task.');
     }
 
 });
