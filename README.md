@@ -4,7 +4,7 @@
 ## Things to show off in demo
 1. Record feature
 
-2. Playback feature
+2. Playback feature (show that audio continues to play while switching tabs / exiting out of extension)
 
 3. Information tab (website opening in new tab)
 
@@ -15,6 +15,8 @@
 6. Record with no audio (play button doesn't appear)
 
 7. Mention that it defaults to current website
+
+8. Show that submitting a task with no title doesn't work
 
 ## Todo
 
