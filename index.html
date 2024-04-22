@@ -1,117 +1,185 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link rel="stylesheet" href="./css/global.css" />
+        <link rel="stylesheet" href="./css/index.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=DM Sans:wght@700&display=swap"
+        />
+    </head>
 
-    <link rel="stylesheet" href="./css/global.css" />
-    <link rel="stylesheet" href="./css/index.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM Sans:wght@700&display=swap" />
-</head>
-
-<body>
-    <div class="base-interface-parent">
-        <div class="base-interface">
-            <div class="bg"></div>
-            <div class="base-interface-child" id="header-bg"></div>
-            <h1 class="extension-name" id="extension-title">Memory Anchor</h1>
-        </div>
-        <div class="navbar">
-            <div class="start-task" id="startTaskContainer">
-                <img class="replace-icon" alt="" src="./public/play-solid.svg" />
-
-                <p class="edit-text">start task</p>
+    <body>
+        <div class="base-interface-parent">
+            <div class="base-interface">
+                <div class="bg"></div>
+                <div class="base-interface-child" id="header-bg"></div>
+                <h1 class="extension-name" id="extension-title">
+                    Memory Anchor
+                </h1>
             </div>
-            <div class="start-task" id="recordTaskContainer">
-                <img class="replace-icon" alt="" src="./public/video-solid.svg" />
+            <div class="navbar">
+                <div class="start-task" id="startTaskContainer">
+                    <img
+                        class="replace-icon"
+                        alt=""
+                        src="./public/play-solid.svg"
+                    />
 
-                <p class="edit-text">record task</p>
+                    <p class="edit-text">start task</p>
+                </div>
+                <div class="start-task" id="recordTaskContainer">
+                    <img
+                        class="replace-icon"
+                        alt=""
+                        src="./public/video-solid.svg"
+                    />
+
+                    <p class="edit-text">record task</p>
+                </div>
+                <div class="help-button" id="helpButtonContainer">
+                    <img
+                        class="help-button-icon"
+                        alt=""
+                        src="./public/question-circle.svg"
+                    />
+                    <p class="help-button-text" id="help-text">HELP</p>
+                </div>
             </div>
-            <div class="help-button" id="helpButtonContainer">
-                <img class="help-button-icon" alt="" src="./public/question-circle.svg" />
-                <p class="help-button-text" id="help-text">HELP</p>
+
+            <div id="helpMessage" class="scroll-box" style="display: none">
+                <p>
+                    Press the "Record Task" button to record a message for
+                    future use. Press the "Start Task" button to see the tasks
+                    for your current website.
+                </p>
+            </div>
+
+            <div id="recordTask" class="scroll-box" style="display: none">
+                <div class="recording-content">
+                    <h2>Record a New Task</h2>
+                    <input
+                        type="text"
+                        id="taskTitle"
+                        placeholder="Task Title"
+                    />
+                    <br />
+                    <input
+                        type="text"
+                        id="taskDescription"
+                        placeholder="Description"
+                    />
+                    <br />
+                    <input type="text" id="taskWebsite" placeholder="Website" />
+                    <br />
+                    <button id="startRecording" style="display: inline">
+                        Start Recording
+                    </button>
+                    <button id="stopRecording" disabled style="display: none">
+                        Stop Recording
+                    </button>
+                    <button id="addTask">Add Task</button>
+                    <p id="recordingStatus" class="status-text">
+                        Not Recording
+                    </p>
+                </div>
+            </div>
+
+            <div id="taskStartSection" class="scroll-box">
+                <ul class="line-item">
+                    <b class="edit-text2" id="task1-title">Sign In</b>
+                    <button class="start" id="start-button-1">
+                        <img
+                            class="line-item-icon"
+                            alt=""
+                            src="./public/play-solid.svg"
+                        />
+                    </button>
+                    <button class="info" id="info-button-1">
+                        <img
+                            class="line-item-icon"
+                            alt=""
+                            src="./public/info-solid.svg"
+                        />
+                    </button>
+                    <button class="editdelete" id="delete-button-1">
+                        <img
+                            class="line-item-icon"
+                            alt=""
+                            src="./public/trash-regular.svg"
+                        />
+                    </button>
+                </ul>
+
+                <ul class="line-item">
+                    <b class="edit-text2" id="task2-title">Student Business</b>
+                    <button class="start" id="start-button-2">
+                        <img
+                            class="line-item-icon"
+                            alt=""
+                            src="./public/play-solid.svg"
+                        />
+                    </button>
+                    <button class="info" id="info-button-2">
+                        <img
+                            class="line-item-icon"
+                            alt=""
+                            src="./public/info-solid.svg"
+                        />
+                    </button>
+                    <button class="editdelete" id="delete-button-2">
+                        <img
+                            class="line-item-icon"
+                            alt=""
+                            src="./public/trash-regular.svg"
+                        />
+                    </button>
+                </ul>
+
+                <ul class="line-item">
+                    <b class="edit-text2" id="task3-title"
+                        >Payroll and Compensation</b
+                    >
+                    <button class="start" id="start-button-3">
+                        <img
+                            class="line-item-icon"
+                            alt=""
+                            src="./public/play-solid.svg"
+                        />
+                    </button>
+                    <button class="info" id="info-button-3">
+                        <img
+                            class="line-item-icon"
+                            alt=""
+                            src="./public/info-solid.svg"
+                        />
+                    </button>
+                    <button class="editdelete" id="delete-button-3">
+                        <img
+                            class="line-item-icon"
+                            alt=""
+                            src="./public/trash-regular.svg"
+                        />
+                    </button>
+                </ul>
             </div>
         </div>
 
-        <div id="helpMessage" class="scroll-box" style="display: none;">
-            <p>Press the "Record Task" button to record a message for future use. Press the "Start Task" button to see
-                the tasks for your current website.</p>
-        </div>
-
-        <div id="recordTask" class="scroll-box" style="display: none;">
-            <div class="recording-content">
-                <h2>Record a New Task</h2>
-                <input type="text" id="taskTitle" placeholder="Task Title" />
-                <br>
-                <input type="text" id="taskDescription" placeholder="Description" />
-                <br>
-                <input type="text" id="taskWebsite" placeholder="Website" />
-                <br>
-                <button id="startRecording" style="display: inline;">Start Recording</button>
-                <button id="stopRecording" disabled style='display: none;'>Stop Recording</button>
-                <button id="addTask">Add Task</button>
-                <p id="recordingStatus" class="status-text">Not Recording</p>
+        <div id="infoModal" class="modal" style="display: none">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="infoTitle">Modal Title</h2>
+                <p id="infoDescription">Some description here...</p>
+                <p id="infoWebsite">
+                    Website:
+                    <a href="#" id="infoWebLink" target="_blank">Click Here</a>
+                </p>
             </div>
         </div>
 
-        <div id="taskStartSection" class="scroll-box">
-
-            <ul class="line-item">
-                <b class="edit-text2" id="task1-title">Sign In</b>
-                <button class="start" id="start-button-1">
-                    <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
-                </button>
-                <button class="info" id="info-button-1">
-                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
-                </button>
-                <button class="editdelete" id="delete-button-1">
-                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
-                </button>
-            </ul>
-
-            <ul class="line-item">
-                <b class="edit-text2" id="task2-title">Student Business</b>
-                <button class="start" id="start-button-2">
-                    <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
-                </button>
-                <button class="info" id="info-button-2">
-                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
-                </button>
-                <button class="editdelete" id="delete-button-2">
-                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
-                </button>
-            </ul>
-
-            <ul class="line-item">
-                <b class="edit-text2" id="task3-title">Payroll and Compensation</b>
-                <button class="start" id="start-button-3">
-                    <img class="line-item-icon" alt="" src="./public/play-solid.svg" />
-                </button>
-                <button class="info" id="info-button-3">
-                    <img class="line-item-icon" alt="" src="./public/info-solid.svg" />
-                </button>
-                <button class="editdelete" id="delete-button-3">
-                    <img class="line-item-icon" alt="" src="./public/trash-regular.svg" />
-                </button>
-            </ul>
-        </div>
-    </div>
-
-
-
-    <div id="infoModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="infoTitle">Modal Title</h2>
-            <p id="infoDescription">Some description here...</p>
-            <p id="infoWebsite">Website: <a href="#" id="infoWebLink">Click Here</a></p>
-        </div>
-    </div>
-
-
-    <script src="./js/popup.js"></script>
-
-</body>
-
+        <script src="./js/popup.js"></script>
+    </body>
 </html>

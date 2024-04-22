@@ -1,27 +1,26 @@
-497 Chrome Extension
-==
+# 497 Chrome Extension
 
 ## Todo
 
-- [x] BUG - Fix audio not stopping when playing new audio
+-   [x] BUG - Fix audio not stopping when playing new audio
 
-- [x] BUG - Make audio permanant
+-   [x] BUG - Make audio permanant
 
-- [ ] BUG - Request user for mic permissions [see here](https://github.com/GoogleChrome/chrome-extensions-samples/issues/821)
+-   [ ] BUG - Request user for mic permissions [see here](https://github.com/GoogleChrome/chrome-extensions-samples/issues/821)
 
-- [ ] BUG - adding task without audio doesn't work sometimes
+-   [ ] BUG - adding task without audio doesn't work sometimes
 
-- [ ] BUG - visual, fix the spacing between recordings
+-   [ ] BUG - visual, fix the spacing between recordings
 
-- [ ] BUG - make it so audio continues playing / recording even while the user clicks out of the extension to interact with the website.
+-   [ ] BUG - make it so audio continues playing / recording even while the user clicks out of the extension to interact with the website.
 
-- [ ] BUG - clicking website link in info does not open - I think just need to add `target='_blank'` for it to open in new tab?
+-   [x] BUG - clicking website link in info does not open - I think just need to add `target='_blank'` for it to open in new tab?
 
-- [ ] FEAT - Import / Export via json. See [here](https://stackoverflow.com/a/8205461) and [here](https://github.com/Polarisation/indexeddb-export-import) though let's discuss before adding any packages
+-   [ ] FEAT - Import / Export via json. See [here](https://stackoverflow.com/a/8205461) and [here](https://github.com/Polarisation/indexeddb-export-import) though let's discuss before adding any packages
 
-- [ ] FEAT - stretch goal, but add favicon from website a recording happened on to the left of the task name to improve recognition
+-   [ ] FEAT - stretch goal, but add favicon from website a recording happened on to the left of the task name to improve recognition
 
-- [ ] FEAT - do some basic CSS with the recording page so it looks nice
+-   [ ] FEAT - do some basic CSS with the recording page so it looks nice
 
 ## Installation
 
@@ -37,7 +36,7 @@
 
 4. Click on the "Load unpacked" button in the top left and select the cloned repository folder (`497-Chrome-Extension`).
 
-5. The extension should now be loaded in developer mode and ready to use. 
+5. The extension should now be loaded in developer mode and ready to use.
 
 ## Usage
 
@@ -60,5 +59,3 @@ If you want to make changes to the extension's code and test them, follow these 
 1. Please develop using a branch for your own work, ideally with a helpful title like (`ui-andrew`) or (`api-faizan`).
 
 2. Submit a pull request before merging into main.
-
-
