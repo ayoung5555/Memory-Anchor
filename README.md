@@ -22,7 +22,7 @@
 
 - [x] BUG - Make audio permanant
 
-- [ ] BUG - visual, fix the spacing between recordings
+- [x] BUG - visual, fix the spacing between recordings
 
 - [x] BUG - make it so audio continues playing / recording even while the user clicks out of the extension to interact with the website.
 
