@@ -1,6 +1,21 @@
 497 Chrome Extension
 ==
 
+## Things to show off in demo
+1. Record feature
+
+2. Playback feature
+
+3. Information tab (website opening in new tab)
+
+4. Deleting of recordings
+
+5. Help Tab
+
+6. Record with no audio (play button doesn't appear)
+
+7. Mention that it defaults to current website
+
 ## Todo
 
 - [x] BUG - Fix audio not stopping when playing new audio
