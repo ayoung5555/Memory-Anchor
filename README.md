@@ -22,13 +22,9 @@
 
 - [x] BUG - Make audio permanant
 
-- [ ] BUG - Request user for mic permissions [see here](https://github.com/GoogleChrome/chrome-extensions-samples/issues/821)
-
-- [ ] BUG - adding task without audio doesn't work sometimes
-
 - [ ] BUG - visual, fix the spacing between recordings
 
-- [ ] BUG - make it so audio continues playing / recording even while the user clicks out of the extension to interact with the website.
+- [x] BUG - make it so audio continues playing / recording even while the user clicks out of the extension to interact with the website.
 
 - [x] BUG - clicking website link in info does not open - I think just need to add `target='_blank'` for it to open in new tab?
 
