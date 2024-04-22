@@ -15,7 +15,7 @@
 
 - [ ] BUG - make it so audio continues playing / recording even while the user clicks out of the extension to interact with the website.
 
-- [ ] BUG - clicking website link in info does not open - I think just need to add `target='_blank'` for it to open in new tab?
+- [x] BUG - clicking website link in info does not open - I think just need to add `target='_blank'` for it to open in new tab?
 
 - [ ] FEAT - Import / Export via json. See [here](https://stackoverflow.com/a/8205461) and [here](https://github.com/Polarisation/indexeddb-export-import) though let's discuss before adding any packages
 
