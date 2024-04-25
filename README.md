@@ -1,7 +1,7 @@
-497 Chrome Extension
+Memory Anchor
 ==
 
-## Things to show off in demo
+## Features
 1. Record feature
 
 2. Playback feature (show that audio continues to play while switching tabs / exiting out of extension)
@@ -19,16 +19,6 @@
 8. Show that submitting a task with no title doesn't work
 
 ## Todo
-
-- [x] BUG - Fix audio not stopping when playing new audio
-
-- [x] BUG - Make audio permanant
-
-- [x] BUG - visual, fix the spacing between recordings
-
-- [x] BUG - make it so audio continues playing / recording even while the user clicks out of the extension to interact with the website.
-
-- [x] BUG - clicking website link in info does not open - I think just need to add `target='_blank'` for it to open in new tab?
 
 - [ ] FEAT - Import / Export via json. See [here](https://stackoverflow.com/a/8205461) and [here](https://github.com/Polarisation/indexeddb-export-import) though let's discuss before adding any packages
 
@@ -48,7 +38,7 @@
 
 3. Enable Developer mode by toggling the switch in the top right corner.
 
-4. Click on the "Load unpacked" button in the top left and select the cloned repository folder (`497-Chrome-Extension`).
+4. Click on the "Load unpacked" button in the top left and select the cloned repository folder.
 
 5. The extension should now be loaded in developer mode and ready to use. 
 
@@ -60,7 +50,7 @@
 
 If you want to make changes to the extension's code and test them, follow these steps:
 
-1. Open the cloned repository folder (`497-Chrome-Extension`) in your preferred code editor.
+1. Open the cloned repository folder in your preferred code editor.
 
 2. Make the necessary changes to the code and be sure to save. Most updates to rendering (HTML/CSS/JS) will update when the extension popup is re-rendered, but if not, continue following the steps below.
 
@@ -73,5 +63,3 @@ If you want to make changes to the extension's code and test them, follow these 
 1. Please develop using a branch for your own work, ideally with a helpful title like (`ui-andrew`) or (`api-faizan`).
 
 2. Submit a pull request before merging into main.
-
-

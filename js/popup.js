@@ -22,8 +22,6 @@ function initDb() {
 
     request.onerror = function (event) {
         console.error('IndexedDB error:', event.target.errorCode);
-        // note: if diagnosing db bugs, delete the db by running 
-        // by going to dev console > applications > indexedDB > recordedTasksDB > right click > delete
     };
 }
 
@@ -80,7 +78,6 @@ function startRecording() {
             };
             mediaRecorder.start();
             document.getElementById('startRecording').disabled = true;
-            // document.getElementById('addTask').disabled = false;
         })
         .catch(error => console.error(error));
 }
@@ -146,21 +143,6 @@ function saveTaskDetails(audioBlob) {
     const title = document.getElementById('taskTitle').value;
     const description = document.getElementById('taskDescription').value;
     const website = document.getElementById('taskWebsite').value;
-    const faviconUrl = null;
-
-    // Check if the website value has the same base as the current URL
-    // if so, use the current favicon and save it.
-    // let currurl
-    // let websiteInput = URL(website)
-    // chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-    //     currurl = tabs[0].url;
-    // });
-    // currurl = URL(currurl)
-    // if (websiteInput.hostname == currurl) {
-    //     // save the favicon
-    //     faviconUrl = chrome.tabs.faviconUrl;
-    //     console.log("Saving favicon: ", faviconUrl);
-    // }
 
     const transaction = db.transaction(['recordedTasks'], 'readwrite');
     const store = transaction.objectStore('recordedTasks');
@@ -267,12 +249,6 @@ function deleteButtonHandler() {
     }
 }
 
-// function adjustTaskSectionHeight() {
-//     const offsetTop = document.querySelector('.navbar').offsetHeight + document.querySelector('#header-bg').offsetHeight;
-//     const taskStartSection = document.getElementById('taskStartSection');
-//     // taskStartSection.style.maxHeight = `calc(100vh - ${offsetTop}px)`;
-// }
-
 function bindStartButtons() {
     document.querySelectorAll('.start').forEach(button => {
         button.removeEventListener('click', startButtonHandler);
@@ -308,7 +284,6 @@ function startButtonHandler() {
             const audio = new Audio(audioUrl);
             PlayedAudios.push(audio);
             chrome.runtime.sendMessage({ action: 'playAudio', source: audioUrl });
-            // audio.play().catch(error => console.error("Playback failed", error));
         }
     };
 }
